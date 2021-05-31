@@ -1,0 +1,174 @@
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(1, 2, 4, 5, 6, 7);
+
+const int switchPin = 3;
+const int ledGrnPin = 13;
+const int ledRedPin = 12;
+int switchState = 0;
+int prevSwitchState = 0;
+int reply;
+
+ 
+void setup() {
+  lcd.begin(16, 2);
+  pinMode(switchPin, INPUT);
+  pinMode(ledGrnPin, OUTPUT);
+  pinMode(ledRedPin, OUTPUT);
+  lcd.print("Aye Kettle");
+ 
+  lcd.setCursor(0, 1);
+  lcd.print("Please Wait");
+  delay(3000);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Connecting");
+  lcd.blink();
+  digitalWrite(ledGrnPin, HIGH);
+  delay(1000);
+  digitalWrite(ledGrnPin, LOW);
+  delay(500);
+  digitalWrite(ledGrnPin, HIGH);
+  delay(1000);
+  digitalWrite(ledGrnPin, LOW);
+  delay(500);
+  digitalWrite(ledGrnPin, HIGH);
+  delay(1000);
+  digitalWrite(ledGrnPin, LOW);
+  delay(500);
+  digitalWrite(ledGrnPin, HIGH);
+  delay(3000);
+  digitalWrite(ledGrnPin, LOW);
+  delay(500);
+  lcd.clear();
+  lcd.print("Connected");
+  lcd.setCursor(0,1);
+  lcd.print("Press to Boil");
+  digitalWrite(ledGrnPin, HIGH);
+  
+  
+}
+  void loop() {
+    switchState = digitalRead(switchPin);
+    if(switchState != prevSwitchState) {
+      if(switchState == LOW) {
+        digitalWrite(ledGrnPin, LOW);
+        digitalWrite(ledRedPin, LOW);
+        reply = random(8);
+        
+        lcd.setCursor(0, 0);
+        
+        
+       
+       
+        switch(reply) {
+          case 0:
+         
+          lcd.clear();
+          digitalWrite(ledRedPin, HIGH);
+          lcd.print("Cannot currently");
+          lcd.setCursor(0,1);
+          lcd.print("Boil");
+          delay(5000);
+          lcd.clear();
+          lcd.setCursor(0,0);
+          lcd.print("Press to Retry");
+          
+          
+          
+          break;
+         
+          case 1:
+          lcd.clear();
+          digitalWrite(ledGrnPin, HIGH);
+          lcd.print("Order Shopping");
+          lcd.setCursor(0,1);
+          lcd.print("From 'ASDAS' ?");
+          delay(5000);
+          lcd.clear();
+          lcd.setCursor(0,0);
+          lcd.print("Continue?");
+          break;
+         
+          case 2:
+          lcd.clear();
+          digitalWrite(ledGrnPin, HIGH);
+          lcd.print("It is currently");
+          lcd.setCursor(0,1);
+          lcd.print("12oC in Sligo");
+          delay(5000);
+          lcd.clear();
+          lcd.setCursor(0,0);
+          lcd.print("Press to boil");
+          break;
+         
+          case 3:
+          lcd.clear();
+          digitalWrite(ledRedPin, HIGH);
+          lcd.print("Internal Server");
+          lcd.setCursor(0,1);
+          lcd.print("Error 5092");
+          delay(5000);
+          lcd.clear();
+          lcd.setCursor(0,0);
+          lcd.print("Contact Helpline?");
+          break;
+         
+          case 4:
+          lcd.clear();
+          digitalWrite(ledGrnPin, HIGH);
+          lcd.print("Subscribed to");
+          lcd.setCursor(0,1);
+          lcd.print("AyeKettle Weekly");
+          delay(5000);
+          lcd.clear();
+          lcd.setCursor(0,0);
+          lcd.print("Press to");
+          lcd.setCursor(0,1);
+          lcd.print("Unsubscribe");
+          break;
+         
+          case 5:
+          lcd.clear();
+          digitalWrite(ledGrnPin, HIGH);
+          lcd.print("Travel Update");
+          lcd.setCursor(0,1);
+          lcd.print("A42 HeavyTraffic");
+          delay(5000);
+          lcd.clear();
+          lcd.setCursor(0,0);
+          lcd.print("Press for latest");
+          lcd.setCursor(0,1);
+          lcd.print("News Update");
+          break;
+         
+          case 6:
+          lcd.clear();
+          digitalWrite(ledGrnPin, HIGH);
+          lcd.print("UPDATE IN");
+          lcd.setCursor(0,1);
+          lcd.print("PROGRESS");
+          lcd.setCursor(9,1);
+          lcd.blink();
+          delay(5000);
+          lcd.clear();
+          lcd.setCursor(0,0);
+          lcd.print("Press to Boil");
+          break;
+         
+          case 7:
+          lcd.clear();
+          digitalWrite(ledRedPin,HIGH);
+          lcd.print("WARNING USER");
+          lcd.setCursor(0,1);
+          lcd.print("DATA COMPROMISED");
+          delay(5000);
+          lcd.clear();
+          lcd.setCursor(0,0);
+          lcd.print("Press for Help");
+          break;    
+        }
+      }
+    }
+       prevSwitchState = switchState;
+  }
